@@ -1,0 +1,84 @@
+class MyLinkedList {
+
+    private class ListNode {
+        int data;
+        ListNode nextNode;
+
+        public ListNode(int data) {
+            this.data = data;
+            this.nextNode = null;
+        }
+    }
+
+    int size = 0;
+    ListNode dummyHead = new ListNode(0);
+
+    public int get(int index) {
+        if (index < 0 || index >= size)
+            return -1;
+
+        ListNode currentNode = dummyHead.nextNode;
+
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.nextNode;
+        }
+
+        return currentNode.data;
+    }
+
+    public void addAtHead(int value) {
+        ListNode firstNode = dummyHead.nextNode;
+        ListNode newNode = new ListNode(value);
+
+        newNode.nextNode = firstNode;
+        dummyHead.nextNode = newNode;
+
+        size++;
+    }
+
+    public void addAtTail(int value) {
+        ListNode currentNode = dummyHead;
+
+        while (currentNode.nextNode != null) {
+            currentNode = currentNode.nextNode;
+        }
+
+        currentNode.nextNode = new ListNode(value);
+        size++;
+    }
+
+    public void addAtIndex(int index, int value) {
+        if (index > size)
+            return;
+
+        ListNode previousNode = dummyHead;
+
+        for (int i = 0; i < index; i++) {
+            previousNode = previousNode.nextNode;
+        }
+
+        ListNode nextNode = previousNode.nextNode;
+        ListNode newNode = new ListNode(value);
+
+        newNode.nextNode = nextNode;
+        previousNode.nextNode = newNode;
+
+        size++;
+    }
+
+    public void deleteAtIndex(int index) {
+        if (index < 0 || index >= size)
+            return;
+
+        ListNode previousNode = dummyHead;
+
+        for (int i = 0; i < index; i++) {
+            previousNode = previousNode.nextNode;
+        }
+
+        ListNode nodeToDelete = previousNode.nextNode;
+        previousNode.nextNode = nodeToDelete.nextNode;
+
+        size--;
+    }
+}
